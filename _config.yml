@@ -1,0 +1,7 @@
+title: "Administration-626 的博客"
+description: "这是一个使用 Jekyll 搭建的个人博客。"
+author: "Administration-626"
+baseurl: "" 
+url: "https://Administration-626.github.io"
+markdown: kramdown
+timezone: Asia/Shanghai

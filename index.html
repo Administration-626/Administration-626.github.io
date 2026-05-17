@@ -1,60 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人博客</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1><a href="index.html">Administration-626 的博客</a></h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="#about">关于</a></li>
-                </ul>
-            </nav>
+---
+layout: default
+---
+<main class="container">
+    <section class="posts">
+        {% for post in site.posts %}
+        <article class="post-card">
+            <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+            <div class="post-meta">发布于 {{ post.date | date: "%Y年%m月%d日" }} | 分类: {{ post.categories | join: ', ' }}</div>
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+            <a href="{{ post.url | relative_url }}" class="read-more">阅读全文 &rarr;</a>
+        </article>
+        {% endfor %}
+    </section>
+
+    <aside class="sidebar">
+        <div class="widget" id="about">
+            <h3>关于我</h3>
+            <p>你好！我是 {{ site.author }}。这是一个基于 Jekyll 搭建的博客，现在你已经可以使用 Markdown 来写文章了！</p>
         </div>
-    </header>
-
-    <main class="container">
-        <section class="posts">
-            <article class="post-card">
-                <h2><a href="posts/first-post.html">我的第一篇博客文章</a></h2>
-                <div class="post-meta">发布于 2026年5月17日 | 分类: 随笔</div>
-                <p class="post-excerpt">这是我的第一篇博客文章。在这里我将分享我的学习记录、生活点滴和技术心得。欢迎大家常来逛逛！</p>
-                <a href="posts/first-post.html" class="read-more">阅读全文 &rarr;</a>
-            </article>
-
-            <article class="post-card">
-                <h2><a href="#">如何搭建个人博客</a></h2>
-                <div class="post-meta">发布于 2026年5月16日 | 分类: 技术教程</div>
-                <p class="post-excerpt">利用 GitHub Pages 搭建个人博客是一个非常不错的选择，免费且易于管理。本文将介绍基本的搭建步骤...</p>
-                <a href="#" class="read-more">阅读全文 &rarr;</a>
-            </article>
-        </section>
-
-        <aside class="sidebar">
-            <div class="widget" id="about">
-                <h3>关于我</h3>
-                <p>你好！我是 Administration-626。这是一个使用原生 HTML 和 CSS 搭建的简单博客雏形。</p>
-            </div>
-            <div class="widget">
-                <h3>分类</h3>
-                <ul>
-                    <li><a href="#">随笔 (1)</a></li>
-                    <li><a href="#">技术教程 (1)</a></li>
-                </ul>
-            </div>
-        </aside>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Administration-626. 保留所有权利。</p>
+        <div class="widget">
+            <h3>分类</h3>
+            <ul>
+                {% assign categories_list = site.categories %}
+                {% for category in categories_list %}
+                <li><a href="#">{{ category[0] }} ({{ category[1].size }})</a></li>
+                {% endfor %}
+            </ul>
         </div>
-    </footer>
-</body>
-</html>
+    </aside>
+</main>
