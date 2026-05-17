@@ -6,7 +6,16 @@ layout: default
         {% for post in site.posts %}
         <article class="post-card">
             <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-            <div class="post-meta">发布于 {{ post.date | date: "%Y年%m月%d日" }} | 分类: {{ post.categories | join: ', ' }}</div>
+            <div class="post-meta">
+                发布于 {{ post.date | date: "%Y年%m月%d日" }}
+                {% if post.tags.size > 0 %}
+                <div class="post-tags">
+                    {% for tag in post.tags %}
+                    <span class="tag">#{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
             <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
             <a href="{{ post.url | relative_url }}" class="read-more">阅读全文 &rarr;</a>
         </article>
@@ -14,18 +23,40 @@ layout: default
     </section>
 
     <aside class="sidebar">
+        <div class="widget">
+            <h3>搜索</h3>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="输入关键词搜索...">
+                <ul id="search-results"></ul>
+            </div>
+        </div>
+
         <div class="widget" id="about">
             <h3>关于我</h3>
-            <p>你好！我是 {{ site.author }}。这是一个基于 Jekyll 搭建的博客，现在你已经可以使用 Markdown 来写文章了！</p>
+            <p>你好！我是 {{ site.author }}。这是一个记录随笔与技术内容的个人空间。</p>
         </div>
+
         <div class="widget">
-            <h3>分类</h3>
+            <h3>标签</h3>
             <ul>
-                {% assign categories_list = site.categories %}
-                {% for category in categories_list %}
-                <li><a href="#">{{ category[0] }} ({{ category[1].size }})</a></li>
+                {% assign tags_list = site.tags %}
+                {% for tag in tags_list %}
+                <li><a href="#">{{ tag[0] }} ({{ tag[1].size }})</a></li>
                 {% endfor %}
             </ul>
         </div>
     </aside>
 </main>
+
+<script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+<script>
+    window.simpleJekyllSearch = new SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '{{ "/search.json" | relative_url }}',
+        searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+        noResultsText: '<li>未找到相关文章</li>',
+        limit: 10,
+        fuzzy: false,
+    });
+</script>
