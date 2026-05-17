@@ -2,7 +2,7 @@
 layout: post
 title: "如何搭建个人博客"
 date: 2026-05-16 10:00:00 +0800
-categories: [技术教程]
+tags: [技术, 教程, Jekyll]
 ---
 
 利用 GitHub Pages 搭建个人博客是一个非常不错的选择，免费且易于管理。本文将介绍基本的搭建步骤。

@@ -2,7 +2,7 @@
 layout: post
 title: "我的第一篇博客文章"
 date: 2026-05-17 12:00:00 +0800
-categories: [随笔]
+tags: [随笔, 生活]
 ---
 
 你好，世界！这是我在 GitHub Pages 上的第一篇博客文章。
